@@ -1,4 +1,4 @@
-    package com.reservafacil.reservafacil.security;
+package com.reservafacil.reservafacil.security;
 
     import com.reservafacil.reservafacil.repositories.UserRepository;
     import jakarta.servlet.FilterChain;
@@ -21,6 +21,17 @@
         @Autowired
         UserRepository userRepository;
 
+        /**
+         * Processes incoming HTTP requests to perform JWT-based authentication, setting the security context if a valid token is present.
+         *
+         * Bypasses authentication for login and registration endpoints. If a valid token is found in the "Authorization" header, validates the token, retrieves the associated user, and sets the authentication in the security context. Continues the filter chain regardless of authentication outcome.
+         *
+         * @param request the HTTP request
+         * @param response the HTTP response
+         * @param filterChain the filter chain to continue processing
+         * @throws ServletException if an error occurs during filtering
+         * @throws IOException if an I/O error occurs during filtering
+         */
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
                                         FilterChain filterChain) throws ServletException, IOException {
@@ -56,6 +67,12 @@
             filterChain.doFilter(request, response);
         }
 
+        /**
+         * Extracts the JWT token from the "Authorization" header of the request.
+         *
+         * @param request the HTTP request containing the "Authorization" header
+         * @return the token string if present, or null if the header is missing
+         */
         private String recoverToken(HttpServletRequest request) {
             var authHeader = request.getHeader("Authorization");
             if (authHeader == null) {

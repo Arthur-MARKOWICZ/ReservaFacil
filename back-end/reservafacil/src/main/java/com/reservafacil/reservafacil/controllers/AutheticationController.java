@@ -31,6 +31,14 @@ public class AutheticationController {
     private TokenService tokenService;
     @Autowired
     private AutheticationService service;
+    /**
+     * Handles user registration requests.
+     *
+     * Accepts a user registration payload and attempts to create a new user account. Returns HTTP 400 Bad Request if the email is already registered; otherwise, returns HTTP 200 OK on successful registration.
+     *
+     * @param usuarioCadastroDto the user registration data
+     * @return HTTP 200 OK if registration succeeds, or HTTP 400 Bad Request with an error message if the email is already registered
+     */
     @PostMapping("/cadastro")
     public ResponseEntity cadastro(@RequestBody UsuarioCadastroDTO usuarioCadastroDto) {
        User newUser = service.cadastrar(usuarioCadastroDto);
@@ -39,6 +47,12 @@ public class AutheticationController {
        }
         return ResponseEntity.ok().build();
     }
+    /**
+     * Authenticates a user and returns a JWT token along with user details.
+     *
+     * @param dto the authentication request containing user credentials
+     * @return HTTP 200 with a token, user ID, and user name if authentication is successful; otherwise, an error response is returned by the authentication manager
+     */
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO dto) {
         System.out.println("email: " + dto.email());
