@@ -1,4 +1,7 @@
 package com.reservafacil.reservafacil.repositories;
 
-public interface RoomRepository {
+import com.reservafacil.reservafacil.models.Room;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RoomRepository extends JpaRepository<Room,Long> {
 }

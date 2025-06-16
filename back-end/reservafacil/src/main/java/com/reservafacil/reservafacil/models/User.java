@@ -1,6 +1,6 @@
 package com.reservafacil.reservafacil.models;
 
-import com.reservafacil.reservafacil.DTO.UsuarioCadastroDto;
+import com.reservafacil.reservafacil.DTO.UsuarioCadastroDTO;
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -22,7 +22,7 @@ public class User implements UserDetails {
     private Role role;
 
     public User(){}
-    public User(UsuarioCadastroDto dto){
+    public User(UsuarioCadastroDTO dto){
         this.nome = dto.nome();
         this.email = dto.email();
     }

@@ -2,10 +2,12 @@ package com.reservafacil.reservafacil.controllers;
 
 import com.reservafacil.reservafacil.DTO.AuthenticationDTO;
 import com.reservafacil.reservafacil.DTO.LoginResponseDTO;
-import com.reservafacil.reservafacil.DTO.UsuarioCadastroDto;
+import com.reservafacil.reservafacil.DTO.UsuarioCadastroDTO;
 import com.reservafacil.reservafacil.models.User;
 import com.reservafacil.reservafacil.repositories.UserRepository;
 import com.reservafacil.reservafacil.security.TokenService;
+import com.reservafacil.reservafacil.services.AutheticationService;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -27,17 +29,19 @@ public class AutheticationController {
     private AuthenticationManager authenticationManager;
     @Autowired
     private TokenService tokenService;
+    @Autowired
+    private AutheticationService service;
     @PostMapping("/cadastro")
-    public ResponseEntity cadastro(@RequestBody UsuarioCadastroDto usuarioCadastroDto) {
-        String encryptedPassword = new BCryptPasswordEncoder().encode(usuarioCadastroDto.senha());
-        User newUser = new User(usuarioCadastroDto);
-        newUser.setSenha(encryptedPassword);
-        newUser.setRole(funcionarios);
-        this.userRepository.save(newUser);
+    public ResponseEntity cadastro(@RequestBody UsuarioCadastroDTO usuarioCadastroDto) {
+       User newUser = service.cadastrar(usuarioCadastroDto);
+       if(newUser == null){
+           return ResponseEntity.badRequest().body("Email ja cadastrado");
+       }
         return ResponseEntity.ok().build();
     }
     @PostMapping("/login")
     public ResponseEntity login(@RequestBody AuthenticationDTO dto) {
+        System.out.println("email: " + dto.email());
         var usernamePassword = new UsernamePasswordAuthenticationToken(dto.email(), dto.senha());
         var authentication = authenticationManager.authenticate(usernamePassword);
         var user = (User) authentication.getPrincipal();

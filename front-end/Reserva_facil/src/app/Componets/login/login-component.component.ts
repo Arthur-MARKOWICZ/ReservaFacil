@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
+import { HttpClient, HttpClientModule } from '@angular/common/http'; 
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-login-component',
   standalone: true,
-  imports: [FormsModule, CommonModule, HttpClientModule], // Add HttpClientModule
+  imports: [FormsModule, CommonModule, HttpClientModule], 
   templateUrl: './login-component.component.html',
   styleUrls: ['./login-component.component.css']
 })
@@ -14,7 +14,7 @@ export class Login2Component {
   email: string = '';
   senha: string = '';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,  private router: Router) {}
 
   onSubmit() {
     const payload = {
@@ -32,5 +32,8 @@ export class Login2Component {
           console.error('Erro no login', error);
         }
       });
+  }
+  Cadastro(){
+    this.router.navigate(['/cadastro']);
   }
 }

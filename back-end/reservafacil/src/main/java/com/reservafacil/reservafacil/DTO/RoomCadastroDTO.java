@@ -1,4 +1,4 @@
 package com.reservafacil.reservafacil.DTO;
 
-public class RoomCadastroDTO {
+public record RoomCadastroDTO(String nome,String localizacao,int capacidade,boolean projetor) {
 }
