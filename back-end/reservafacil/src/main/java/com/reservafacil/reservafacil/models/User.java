@@ -21,7 +21,15 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User(){}
+    /**
+ * Creates a new User instance with default values.
+ */
+public User(){}
+    /**
+     * Constructs a new User with the name and email initialized from the provided registration DTO.
+     *
+     * @param dto the data transfer object containing user registration information
+     */
     public User(UsuarioCadastroDTO dto){
         this.nome = dto.nome();
         this.email = dto.email();
