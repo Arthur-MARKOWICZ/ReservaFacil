@@ -1,0 +1,13 @@
+<div class="CadastroUsuario">
+    <form (ngSubmit)="onSubmit()">
+    <label for="nome">Nome:</label>
+    <input type="text" id="nome" [(ngModel)]="nome" name="nome" required>
+    <label for="email">Email:</label>
+    <input type="email" id="email" [(ngModel)]="email" name="email" required>
+
+  <label for="senha">Senha:</label>
+  <input type="password" id="senha" [(ngModel)]="senha" name="senha" required>
+
+  <button type="submit">Entrar</button>
+    </form>
+</div>
