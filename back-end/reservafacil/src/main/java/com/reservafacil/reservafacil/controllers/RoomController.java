@@ -4,19 +4,29 @@ import com.reservafacil.reservafacil.DTO.RoomCadastroDTO;
 import com.reservafacil.reservafacil.models.Room;
 import com.reservafacil.reservafacil.services.RoomService;
 import jakarta.websocket.server.PathParam;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @RestController
 @RequestMapping("/room")
 public class RoomController {
     @Autowired
     private RoomService service;
     @PostMapping("/cadastro")
-    public ResponseEntity cadastro(@RequestBody RoomCadastroDTO dto){
+    public ResponseEntity<Room> cadastro(@RequestBody RoomCadastroDTO dto){
           Room newRoom =  service.cadastro(dto);
+          log.info("Cadastro de sala feito com sucesso");
           return ResponseEntity.ok(newRoom);
+    }
+    @GetMapping("/todos")
+    public ResponseEntity<Page<Room>> pegarTodos(Pageable pageable){
+        Page<Room> rooms = service.listar(pageable);
+        return ResponseEntity.ok(rooms);
     }
     @GetMapping("/{id}")
     public ResponseEntity<Room> pegarPorId(@PathParam("id") Long id){
@@ -29,7 +39,7 @@ public class RoomController {
         return  ResponseEntity.ok(room);
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity DeletarPorId(@PathParam("id") Long id){
+    public ResponseEntity<Void> DeletarPorId(@PathParam("id") Long id){
        service.deletarPorId(id);
         return  ResponseEntity.noContent().build();
     }
