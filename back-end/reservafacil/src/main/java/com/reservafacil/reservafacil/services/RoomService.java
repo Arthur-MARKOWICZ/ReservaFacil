@@ -7,10 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
 @Service
+@Transactional
 public class RoomService {
     @Autowired
     private RoomRepository repository;
@@ -20,7 +22,7 @@ public class RoomService {
         repository.save(newRoom);
         return newRoom;
     }
-    public Page<Room> listrar(Pageable pageable){
+    public Page<Room> listar(Pageable pageable){
         Page<Room> todas = repository.findAll(pageable);
         return todas;
     }
@@ -30,7 +32,7 @@ public class RoomService {
     public  Room atualizar(Long id,RoomCadastroDTO dto){
         Room room = this.buscarPorId(id);
         room.alterarDados(dto);
-        return room;
+        return repository.save(room);
     }
 
     public void deletarPorId(Long id) {
