@@ -1,0 +1,43 @@
+.sala-card {
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  background: white;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.sala-titulo {
+  font-size: 20px;
+  margin-bottom: 8px;
+}
+
+.sala-capacidade,
+.sala-disponibilidade {
+  margin: 4px 0;
+}
+
+.sala-disponibilidade.disponivel {
+  color: green;
+  font-weight: bold;
+}
+
+.sala-disponibilidade.ocupada {
+  color: red;
+  font-weight: bold;
+}
+
+.btn-reservar {
+  margin-top: 10px;
+  padding: 8px 16px;
+  border: none;
+  background-color: #0066cc;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-reservar:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

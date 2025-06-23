@@ -1,0 +1,14 @@
+<div class="sala-card">
+  <h2>{{ room.nome }}</h2>
+  <p>Capacidade: {{ room.capacidade }}</p>
+  <p [ngClass]="room.disponivel ? 'disponivel' : 'ocupada'">
+    {{ room.disponivel ? 'Disponível' : 'Ocupada' }}
+  </p>
+
+  <button
+    [disabled]="!room.disponivel"
+    (click)="reservarSala()"
+    class="btn-reservar">
+    Reservar
+  </button>
+</div>
