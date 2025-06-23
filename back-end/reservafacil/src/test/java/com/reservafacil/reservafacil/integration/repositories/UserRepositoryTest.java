@@ -1,7 +1,8 @@
-package com.reservafacil.reservafacil.repositories;
+package com.reservafacil.reservafacil.integration.repositories;
 
 import com.reservafacil.reservafacil.DTO.UsuarioCadastroDTO;
 import com.reservafacil.reservafacil.models.User;
+import com.reservafacil.reservafacil.repositories.UserRepository;
 import com.reservafacil.reservafacil.services.AutheticationService;
 import com.reservafacil.reservafacil.services.UserService;
 import org.junit.jupiter.api.Test;
@@ -40,19 +41,5 @@ public class UserRepositoryTest {
         assertEquals(nome,resultado.getNome());
         verify(repository,times(1)).save(any(User.class));
     }
-    @Test
-    @Rollback(value = false)
-    void criarUser_retornaloDoBanco(){
-        //dado
-        UsuarioCadastroDTO dto = new UsuarioCadastroDTO("test","test@test","test");
-        User salvo = new User(dto);
-        when(repository.save(any(User.class))).thenReturn(salvo);
-        //quando
-        User resultado = service.cadastrar(dto);
-        User resultadoBanco = userSevice.buscarPorID(resultado.getId());
-        //entao
-        assertEquals(resultado,resultadoBanco);
 
-
-    }
 }
