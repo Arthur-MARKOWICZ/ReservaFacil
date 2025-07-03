@@ -19,5 +19,6 @@ git clone https://github.com/seu-usuario/nome-do-projeto.git
 # Entre na pasta
 cd nome-do-projeto
 
-# Suba a aplicação (ex: via Maven, npm ou Docker)
-./mvnw spring-boot:run
+# Suba a aplicação 
+./mvnw spring-boot:run(o back-end)
+./ng serve(o fornt-end)
