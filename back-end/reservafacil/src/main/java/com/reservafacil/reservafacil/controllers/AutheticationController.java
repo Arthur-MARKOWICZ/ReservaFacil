@@ -1,9 +1,9 @@
 package com.reservafacil.reservafacil.controllers;
 
-import com.reservafacil.reservafacil.DTO.AuthenticationDTO;
-import com.reservafacil.reservafacil.DTO.LoginResponseDTO;
-import com.reservafacil.reservafacil.DTO.UsuarioCadastroDTO;
-import com.reservafacil.reservafacil.models.User;
+import com.reservafacil.reservafacil.dto.authentication.AuthenticationDTO;
+import com.reservafacil.reservafacil.dto.authentication.LoginResponseDTO;
+import com.reservafacil.reservafacil.dto.usuario.UsuarioCadastroDTO;
+import com.reservafacil.reservafacil.models.user.Usuario;
 import com.reservafacil.reservafacil.services.AutheticationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +24,7 @@ public class AutheticationController {
     }
     @PostMapping("/cadastro")
     public ResponseEntity<String> cadastro(@RequestBody UsuarioCadastroDTO usuarioCadastroDto) {
-       User newUser = service.cadastrar(usuarioCadastroDto);
+       Usuario newUser = service.cadastrar(usuarioCadastroDto);
        if(newUser == null){
            return ResponseEntity.badRequest().body("Email ja cadastrado");
        }

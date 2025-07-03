@@ -1,16 +1,16 @@
-package com.reservafacil.reservafacil.models;
+package com.reservafacil.reservafacil.models.room;
 
-import com.reservafacil.reservafacil.DTO.AlterarRoomDTO;
-import com.reservafacil.reservafacil.DTO.RoomCadastroDTO;
+import com.reservafacil.reservafacil.dto.sala.SalaAlterarDTO;
+import com.reservafacil.reservafacil.dto.sala.SalaCadastroDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Table(name = "tb_Room")
+@Table(name = "tb_Sala")
 @Getter
 @Setter
-public class Room {
+public class Sala {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -21,16 +21,16 @@ public class Room {
     @Enumerated(EnumType.STRING)
     private Disponivel disponivel;
 
-    public Room() {
+    public Sala() {
     }
-    public Room(RoomCadastroDTO dto){
+    public Sala(SalaCadastroDTO dto){
         this.nome = dto.nome();
         this.localizacao = dto.localizacao();
         this.capacidade = dto.capacidade();
         this.temProjetor = dto.projetor();
         this.disponivel = disponivel;
     }
-    public void alterarDados(AlterarRoomDTO dto){
+    public void alterarDados(SalaAlterarDTO dto){
         this.nome = dto.nome();
         this.localizacao = dto.localizacao();
         this.capacidade = dto.capacidade();
