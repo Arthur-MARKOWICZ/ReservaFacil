@@ -1,4 +1,4 @@
-package com.reservafacil.reservafacil.DTO;
+package com.reservafacil.reservafacil.dto.authentication;
 
 public record AuthenticationDTO(String email, String senha) {
 }

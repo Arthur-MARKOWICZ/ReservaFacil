@@ -1,6 +1,6 @@
 package com.reservafacil.reservafacil.security;
 
-import com.reservafacil.reservafacil.repositories.UserRepository;
+import com.reservafacil.reservafacil.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,9 +23,9 @@ public class SecurityConfig {
     @Autowired
     SecurityFilter  securityFilter;
 
-    private final UserRepository userRepository;
+    private final UsuarioRepository userRepository;
 
-    public SecurityConfig(UserRepository userRepository)    {
+    public SecurityConfig(UsuarioRepository userRepository)    {
         this.userRepository = userRepository;
     }
 

@@ -1,6 +1,6 @@
-package com.reservafacil.reservafacil.models;
+package com.reservafacil.reservafacil.models.user;
 
-import com.reservafacil.reservafacil.DTO.UsuarioCadastroDTO;
+import com.reservafacil.reservafacil.dto.usuario.UsuarioCadastroDTO;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,10 +12,10 @@ import java.util.Collection;
 import java.util.List;
 
 @Entity
-@Table(name = "tb_usuarios")
+@Table(name = "tb_usuario")
 @Getter
 @Setter
-public class User implements UserDetails {
+public class Usuario implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -25,14 +25,14 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    public User(){}
-    public User(UsuarioCadastroDTO dto){
+    public Usuario(){}
+    public Usuario(UsuarioCadastroDTO dto){
         this.nome = dto.nome();
         this.email = dto.email();
     }
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
     }
 
     @Override

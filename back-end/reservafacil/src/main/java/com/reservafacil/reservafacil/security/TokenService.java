@@ -3,7 +3,7 @@ package com.reservafacil.reservafacil.security;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTCreationException;
 import com.auth0.jwt.exceptions.JWTVerificationException;
-import com.reservafacil.reservafacil.models.User;
+import com.reservafacil.reservafacil.models.user.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -16,7 +16,7 @@ import com.auth0.jwt.JWT;
 public class TokenService {
     //por em uma variavel de ambiente
     private String secret = "test";
-    public String generateToken(User user){
+    public String generateToken(Usuario user){
         try{
             Algorithm algorithm = Algorithm.HMAC256(secret);
             String token = JWT.create()
@@ -30,7 +30,7 @@ public class TokenService {
 
         }
     }
-    public String generateResetToken(User user) {
+    public String generateResetToken(Usuario user) {
         try {
             Algorithm algorithm = Algorithm.HMAC256(secret);
             return JWT.create()

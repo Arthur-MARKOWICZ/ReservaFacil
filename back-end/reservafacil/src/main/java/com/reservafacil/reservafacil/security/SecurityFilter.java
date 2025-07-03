@@ -1,6 +1,6 @@
     package com.reservafacil.reservafacil.security;
 
-    import com.reservafacil.reservafacil.repositories.UserRepository;
+    import com.reservafacil.reservafacil.repositories.UsuarioRepository;
     import jakarta.servlet.FilterChain;
     import jakarta.servlet.ServletException;
     import jakarta.servlet.http.HttpServletRequest;
@@ -8,7 +8,6 @@
     import org.springframework.beans.factory.annotation.Autowired;
     import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
     import org.springframework.security.core.context.SecurityContextHolder;
-    import org.springframework.security.core.userdetails.UserDetails;
     import org.springframework.stereotype.Component;
     import org.springframework.web.filter.OncePerRequestFilter;
 
@@ -19,7 +18,7 @@
         @Autowired
         TokenService tokenService;
         @Autowired
-        UserRepository userRepository;
+        UsuarioRepository usuarioRepository;
 
         @Override
         protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
@@ -36,21 +35,21 @@
                 try {
                     var email = tokenService.validateToken(token);
                     if (email != null) {
-                        var userOptional = userRepository.findByEmail(email);
+                        var userOptional = usuarioRepository.findByEmail(email);
                         if (userOptional.isPresent()) {
                             var user = userOptional.get();
                             var authentication = new UsernamePasswordAuthenticationToken(
                                     user, null, user.getAuthorities());
                             SecurityContextHolder.getContext().setAuthentication(authentication);
                         } else {
-                            System.out.println("User not found for email: " + email);
+                            System.out.println("Usuario not found for email: " + email);
                         }
                     } else {
                         System.out.println("Invalid token: " + token);
                     }
                 } catch (Exception e) {
                     System.out.println("Error validating token: " + e.getMessage());
-                    // Prevent filter from rejecting request
+
                 }
             }
             filterChain.doFilter(request, response);
