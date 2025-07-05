@@ -9,6 +9,8 @@ import com.reservafacil.reservafacil.repositories.ReservaRepository;
 import com.reservafacil.reservafacil.repositories.SalaRepository;
 import com.reservafacil.reservafacil.repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -36,5 +38,9 @@ public class ReservaService {
         Reserva novaReserva = new Reserva(dto,room,usuario);
 
         return respository.save(novaReserva);
+    }
+    public Page<Reserva> reservasPorId(Long id, Pageable pageable){
+        Page<Reserva> reservas = respository.findPorId(id, pageable);
+        return reservas;
     }
 }
